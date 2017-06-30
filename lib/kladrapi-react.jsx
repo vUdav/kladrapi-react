@@ -5,6 +5,12 @@ import jsonp from 'jsonp';
 import './kladrapi-react.scss';
 
 export default React.createClass({
+	propTypes: {
+		contentType: React.PropTypes.string.isRequired,
+		withParent: React.PropTypes.boolean,
+		limit: React.PropTypes.number,
+	},
+
 	getInitialState: function () {
 		return {
 			value: ''
