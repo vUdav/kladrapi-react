@@ -8,7 +8,7 @@ module.exports = {
 
 	output: {
 		path: path.join(__dirname),
-		filename: 'index.js',
+		filename: 'kladrapi-react.js',
 		libraryTarget: 'umd',
 		library: 'KladrapiReact'
 	},
