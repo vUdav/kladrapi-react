@@ -49,6 +49,7 @@
 	},
 	"dependencies": {
 		"babel-runtime": "~5.8.20",
+		"jsonp": "^0.2.1",
 		"react": "~0.13.3"
 	}
 }
