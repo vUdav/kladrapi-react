@@ -26,12 +26,20 @@ export default React.createClass({
 
 	onChange: function (e) {
 		const value = e.target.value;
+		const {
+			onChange,
+			onEmpty
+		} = this.props;
+
+		if(onChange) onChange(value);
+
 		this.setState({
 			value: value
 		});
 		if (value)
 			this.search(value);
 		else {
+			if(onEmpty) onEmpty(true);
 			this.setState({
 				result: null
 			});
@@ -91,6 +99,10 @@ export default React.createClass({
 	},
 
 	choose: function (item) {
+		const {onSelect} = thos.props;
+
+		if(onSelect) onSelect(item);
+
 		this.setState({
 			result: null,
 			item: item,
