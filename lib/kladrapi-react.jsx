@@ -90,6 +90,16 @@ export default React.createClass({
 		});
 	},
 
+	choose: function (item) {
+		this.setState({
+			result: null,
+			item: item,
+			value: item.name,
+			objectId: item.id,
+			objectType: item.contentType
+		});
+	},
+
 	render: function() {
 		const {
 			value,
@@ -120,7 +130,7 @@ export default React.createClass({
 								<li
 									key={item.id}
 									className='kladr__item'
-									onClick={this.choose.bind(this,item)}>
+									onClick={this.choose(item)}>
 									{item.typeShort}.{item.name} {region ? region : null}
 								</li>
 							)
