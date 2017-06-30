@@ -92,7 +92,8 @@ export default React.createClass({
 
 	render: function() {
 		const {
-			value
+			value,
+			result
 		} = this.state;
 
 		return (
@@ -102,6 +103,30 @@ export default React.createClass({
 					onChange={this.onChange}
 					value={value}
 				/>
+				{result ? (
+					<ul className="kladr__list">
+						{result.map((item)=>{
+							let region = null;
+							if(item.parents.length > 0 && item.contentType === 'city') {
+								region = item.parents.map((item)=>{
+									if(item.contentType === 'region') {
+										return <span key={item.id}>({item.name} {item.type})</span>
+									} else {
+										return false;
+									}
+								});
+							}
+							return (
+								<li
+									key={item.id}
+									className='kladr__item'
+									onClick={this.choose.bind(this,item)}>
+									{item.typeShort}.{item.name} {region ? region : null}
+								</li>
+							)
+						})}
+					</ul>
+				) : null}
 			</div>
 		);
 	}
