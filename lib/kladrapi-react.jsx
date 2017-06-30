@@ -5,7 +5,32 @@ import jsonp from 'jsonp';
 import './kladrapi-react.scss';
 
 export default React.createClass({
+	getInitialState: function () {
+		return {
+			value: ''
+		}
+	},
+
+	onChange: function (e) {
+		const value = e.target.value;
+		this.setState({
+			value: value
+		});
+	},
+
 	render: function() {
-		return <div className="kladrapi-react">Hello World</div>;
+		const {
+			value
+		} = this.state;
+
+		return (
+			<div className="kladr">
+				<input
+					type="text"
+					onChange={this.onChange}
+					value={value}
+				/>
+			</div>
+		);
 	}
 });
