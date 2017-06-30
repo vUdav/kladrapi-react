@@ -1,0 +1,23 @@
+.kladr {
+	position: relative;
+	&__list {
+		position: absolute;
+		z-index: 1;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		width: 100%;
+		background-color: #fff;
+		box-shadow: 0 10px 20px rgba(0,0,0,.5);
+
+		li {
+			padding: 10px 15px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #1e88e5;
+				color: #fff;
+			}
+		}
+	}
+}
