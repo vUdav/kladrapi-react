@@ -6,14 +6,21 @@ import './kladrapi-react.scss';
 
 export default React.createClass({
 	propTypes: {
+		token: React.PropTypes.string.isRequired,
 		contentType: React.PropTypes.string.isRequired,
-		withParent: React.PropTypes.boolean,
+		withParent: React.PropTypes.bool,
 		limit: React.PropTypes.number,
+		regionId: React.PropTypes.string,
+		districtId: React.PropTypes.string,
+		cityId: React.PropTypes.string,
+		streetId: React.PropTypes.string,
+		buildingId: React.PropTypes.string
 	},
 
 	getInitialState: function () {
 		return {
-			value: ''
+			value: '',
+			result: null
 		}
 	},
 
@@ -21,6 +28,65 @@ export default React.createClass({
 		const value = e.target.value;
 		this.setState({
 			value: value
+		});
+		if (value)
+			this.search(value);
+		else {
+			this.setState({
+				result: null
+			});
+		}
+	},
+
+	search: function (query) {
+		const t = this;
+		const {
+			token,
+			contentType,
+			withParent,
+			limit,
+			regionId,
+			districtId,
+			cityId,
+			streetId,
+			buildingId
+		} = this.props;
+
+		if(!token) {
+			console.error('Token is required! Please register on https://kladr-api.ru/register/ and get token');
+			return;
+		}
+		if(!contentType) {
+			console.error('contentType is required property!');
+			return;
+		}
+
+		let url = 'http://kladr-api.ru/api.php?token='+token+'&contentType='+contentType+'&query='+query;
+
+		if(withParent)
+			url += '&withParent=1';
+		if(limit)
+			url += '&limit='+limit;
+		if(regionId)
+			url += '&regionId='+regionId;
+		if(districtId)
+			url += '&districtId='+districtId;
+		if(cityId)
+			url += '&cityId='+cityId;
+		if(streetId)
+			url += '&streetId='+streetId;
+		if(buildingId)
+			url += '&buildingId='+buildingId;
+
+		jsonp(url, null, function (err, data) {
+			if (err) {
+				console.error(err.message);
+			} else {
+				const r = data.result;
+				t.setState({
+					result: r
+				});
+			}
 		});
 	},
 
